@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
+import { RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatListModule} from '@angular/material/list';
 
 
 
@@ -14,6 +18,8 @@ import { FooterComponent } from './footer/footer.component';
   ],
   imports: [
     CommonModule,
+    RouterModule,
+    MatListModule
   ],
   exports:[
     HeaderComponent,
