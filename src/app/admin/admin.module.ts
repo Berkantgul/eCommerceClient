@@ -5,6 +5,7 @@ import { ComponentsModule } from './components/components.module';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
@@ -14,7 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CommonModule,
     LayoutModule,
     ComponentsModule,
-    RouterModule,
+    RouterModule
   ],
   exports:[
     LayoutModule

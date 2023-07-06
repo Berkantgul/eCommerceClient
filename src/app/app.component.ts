@@ -10,6 +10,4 @@ export class AppComponent {
   title = 'eCommerceClient';
 }
 
-$(document).ready(() => {
-  alert("ddd")
-})
+
