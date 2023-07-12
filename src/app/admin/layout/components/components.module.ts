@@ -7,7 +7,9 @@ import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatListModule} from '@angular/material/list';
-
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 @NgModule({
@@ -19,7 +21,10 @@ import {MatListModule} from '@angular/material/list';
   imports: [
     CommonModule,
     RouterModule,
-    MatListModule
+    MatListModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatToolbarModule
   ],
   exports:[
     HeaderComponent,
