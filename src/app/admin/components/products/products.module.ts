@@ -8,17 +8,21 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatFormFieldModule } from '@angular/material/form-field';
 // import {MatInputModule} from '@angular/material/input';
 import { MatInputModule } from '@angular/material/input'
-import {MatButtonModule} from '@angular/material/button';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatTableModule} from '@angular/material/table';
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { DeleteDirective } from 'src/app/directives/admin/delete.directive';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DeleteDialogComponent } from 'src/app/dialogs/delete-dialog/delete-dialog.component';
 
 
 @NgModule({
   declarations: [
     ProductsComponent,
     CreateProductComponent,
-    ListProductComponent
+    ListProductComponent,
+    DeleteDirective,
+    DeleteDialogComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +33,7 @@ import {MatTableModule} from '@angular/material/table';
     MatFormFieldModule,
     // MatInputModule
     MatInputModule,
-    MatButtonModule, MatPaginatorModule, MatTableModule
+    MatButtonModule, MatPaginatorModule, MatTableModule, MatDialogModule
   ]
 })
 export class ProductsModule { }
