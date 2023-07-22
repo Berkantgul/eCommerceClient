@@ -13,6 +13,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { DeleteDirective } from './directives/admin/delete.directive';
 import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.component';
+import { NgxFileDropModule } from 'ngx-file-drop';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FileUploadDialogComponent } from './dialogs/file-upload-dialog/file-upload-dialog.component';
+import { DialogModule } from './dialogs/dialog.module';
 
 
 
