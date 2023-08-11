@@ -58,6 +58,7 @@ export class ListProductComponent extends BaseComponent implements OnInit {
     this.dataSource = new MatTableDataSource<List_Product>(allProducts.products)
     // Tablonun bende var olan verilerin sayısını bilmesi için sayfalama yapısına bundan haberdar ediyorum
     this.paginator.length = allProducts.totalCount
+    debugger
   }
 
   // page değiştiğinde verilerin değişmesini tetikliyorum.

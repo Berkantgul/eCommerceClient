@@ -17,6 +17,7 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FileUploadDialogComponent } from './dialogs/file-upload-dialog/file-upload-dialog.component';
 import { DialogModule } from './dialogs/dialog.module';
+import { JwtModule } from '@auth0/angular-jwt';
 
 
 
@@ -31,7 +32,13 @@ import { DialogModule } from './dialogs/dialog.module';
     AdminModule, UiModule,
     ToastrModule.forRoot(),
     NgxSpinnerModule,
-    HttpClientModule
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem("accesstoken"),
+        allowedDomains: ["localhost:7046"]
+      }
+    })
   ],
   providers: [
     { provide: "baseUrl", useValue: 'https://localhost:7046/api', multi: true }

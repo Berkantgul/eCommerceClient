@@ -11,10 +11,10 @@ export class HomeComponent implements OnInit {
   constructor(private toastrService: CustomToastrService) { }
 
   ngOnInit(): void {
-    this.toastrService.message("Merhaba", "Deneme", {
-      messageType: ToastrMessageType.Success,
-      toastrPosition: ToastrPosition.BottomRight
-    })
+    // this.toastrService.message("Merhaba", "Deneme", {
+    //   messageType: ToastrMessageType.Success,
+    //   toastrPosition: ToastrPosition.BottomRight
+    // })
   }
 
 }

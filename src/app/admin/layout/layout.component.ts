@@ -10,10 +10,7 @@ export class LayoutComponent implements OnInit {
   constructor(private readonly alertify: AlertifyService) { }
 
   ngOnInit(): void {
-    this.alertify.message("Merhaba", {
-      messageType: MessageType.Success,
-      position: Position.BottomCenter
-    })
+    
   }
 
 
