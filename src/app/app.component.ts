@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthService } from './services/common/auth.service';
+import { Router } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -8,6 +10,19 @@ declare var $: any;
 })
 export class AppComponent {
   title = 'eCommerceClient';
+
+  constructor(
+    public authService: AuthService,
+    private router: Router
+  ) {
+    this.authService.isAuthenticated
+  }
+
+  signOut() {
+    localStorage.removeItem("accesstoken")
+    this.authService.identityCheck()
+    this.router.navigate([""])
+  }
 }
 
 

@@ -18,12 +18,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FileUploadDialogComponent } from './dialogs/file-upload-dialog/file-upload-dialog.component';
 import { DialogModule } from './dialogs/dialog.module';
 import { JwtModule } from '@auth0/angular-jwt';
+import { LoginComponent } from './ui/components/login/login.component';
+import { FacebookLoginProvider, GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -38,10 +41,29 @@ import { JwtModule } from '@auth0/angular-jwt';
         tokenGetter: () => localStorage.getItem("accesstoken"),
         allowedDomains: ["localhost:7046"]
       }
-    })
+    }),
+    SocialLoginModule,
+    GoogleSigninButtonModule
   ],
   providers: [
-    { provide: "baseUrl", useValue: 'https://localhost:7046/api', multi: true }
+    { provide: "baseUrl", useValue: 'https://localhost:7046/api', multi: true },
+    {
+      provide: "SocialAuthServiceConfig",
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider("91151793713-mnr34phu0gkus533emsq5ure3qalru9m.apps.googleusercontent.com")
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider("329665416097041")
+          }
+        ],
+        onError: err => console.log(err)
+      } as SocialAuthServiceConfig
+    }
   ],
   bootstrap: [AppComponent]
 })

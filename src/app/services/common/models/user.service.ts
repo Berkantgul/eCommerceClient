@@ -5,6 +5,8 @@ import { Observable, firstValueFrom } from 'rxjs';
 import { Create_User } from 'src/app/contracts/user/create-user';
 import { TokenResponse } from 'src/app/contracts/token/tokenResponse';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../ui/custom-toastr.service';
+import { SocialUser } from '@abacritt/angularx-social-login';
+import { Token } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -21,22 +23,5 @@ export class UserService {
     return await firstValueFrom(observable) as Create_User
   }
 
-  async login(userNameOrEmail: string, password: string, callBackFunction: () => void): Promise<any> {
-    const observable: Observable<any | TokenResponse> = this.httpClientService.post<any | TokenResponse>({
-      controller: "users",
-      action: "login"
-    }, { userNameOrEmail, password })
-
-    const tokenResponse: TokenResponse = await firstValueFrom(observable) as TokenResponse
-    if (tokenResponse) {
-      localStorage.setItem("accesstoken", tokenResponse.token.accessToken)
-
-      this.toastrService.message("Kullanıcı girişi başarıyla sağlanmıştır", "Giriş Başarılı", {
-        messageType: ToastrMessageType.Success,
-        toastrPosition: ToastrPosition.TopRight
-      })
-    }
-
-    callBackFunction()
-  }
+  
 }

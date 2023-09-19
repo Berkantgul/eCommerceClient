@@ -9,19 +9,19 @@ const routes: Routes = [
   {
     path: "admin", component: LayoutComponent, children: [
       {
-        path: "", component: DashboardComponent
+        path: "", component: DashboardComponent, canActivate: [AuthGuard]
       },
       {
         path: "customers", loadChildren: () => import("./admin/components/customer/customer.module").then
-          (module => module.CustomerModule)
+          (module => module.CustomerModule), canActivate: [AuthGuard]
       },
       {
         path: "orders", loadChildren: () => import("./admin/components/order/order.module").then
-          (module => module.OrderModule)
+          (module => module.OrderModule), canActivate: [AuthGuard]
       },
       {
         path: "products", loadChildren: () => import("./admin/components/products/products.module").then
-          (module => module.ProductsModule)
+          (module => module.ProductsModule), canActivate: [AuthGuard]
       }
     ], canActivate: [AuthGuard]
 

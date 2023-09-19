@@ -13,9 +13,16 @@
       <input type="password" #password class="form-control" id="password" placeholder="Şifre">
     </div>
 
-    <button type="submit" class="btn btn-primary m-5" (click)="loginUser(usernameoremail.value, password.value)">Kayıt
-      Ol</button>
+    <div>
 
-  </div>
+      <img src="../../../../assets/facebook.png" alt="" width="40" height="40" (click)="facebookLogin()" style="cursor: pointer;">
+      <asl-google-signin-button type='icon' size='medium' style="display: inline;"></asl-google-signin-button>
+    </div>
+    <button type="submit" class="btn btn-primary m-5" (click)="loginUser(usernameoremail.value, password.value)">Giriş Yap
+      </button>
+
+
+    </div>
   <div class="col-md-3"></div>
 </div>
+
