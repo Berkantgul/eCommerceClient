@@ -48,18 +48,18 @@ export class LoginComponent extends BaseComponent {
     })
   }
 
-  async loginUser(userNameOrEmail: string, password: string) {
-    this.showSpinner(SpinnerType.BallScaleMultiple)
-    await this.userAuthService.login(userNameOrEmail, password, () => {
-      this.authService.identityCheck()
+  async loginUser(usernameOrEmail: string, password: string) {
+    this.showSpinner(SpinnerType.BallScaleMultiple);
+    await this.userAuthService.login(usernameOrEmail, password, () => {
+      this.authService.identityCheck();
+
       this.activatedRoute.queryParams.subscribe(params => {
-        const returnUrl: string = params["returnUrl"]
+        const returnUrl: string = params["returnUrl"];
         if (returnUrl)
-          this.router.navigate([returnUrl])
-      })
-      debugger
-      this.hideSpinner(SpinnerType.BallScaleMultiple)
-    })
+          this.router.navigate([returnUrl]);
+      });
+      this.hideSpinner(SpinnerType.BallScaleMultiple);
+    });
   }
 
   facebookLogin() {
