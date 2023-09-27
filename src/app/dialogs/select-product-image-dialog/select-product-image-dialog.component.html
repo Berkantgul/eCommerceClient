@@ -4,10 +4,11 @@
 
 
   <mat-card class="product-image-card" *ngFor="let item of images ">
-
+    <mat-card-header>
+      <input type="radio" name="img" (click)="changeShowcase(item.id)">
+    </mat-card-header>
     <img mat-card-image [src]="item.path" alt="Photo of a Shiba Inu">
     <mat-card-content>
-
     </mat-card-content>
     <mat-card-actions>
       <button mat-button style="background-color: chocolate; color: wheat;" (click)="deleteImages(item.id, $event)">DELETE</button>

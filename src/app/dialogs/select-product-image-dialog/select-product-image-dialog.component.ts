@@ -46,7 +46,7 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
       data: DataType.Yes,
       callBack: async () => {
         this.spinner.show(SpinnerType.BallScaleMultiple)
-        
+
         await this.productService.deleteImages(this.data as string, imageId, () => {
           this.spinner.hide(SpinnerType.BallScaleMultiple)
           var card = $(event.srcElement).parent().parent().parent()
@@ -57,6 +57,14 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
     })
   }
 
+  changeShowcase(imageId: string) {
+    // alert(`imageId: ${imageId} - productId: ${this.data}`)
+    this.spinner.show(SpinnerType.BallScaleMultiple)
+    this.productService.changeShowcase(imageId, this.data as string, () => {
+      debugger
+      this.spinner.hide(SpinnerType.BallScaleMultiple)
+    })
+  }
 }
 
 export enum SelectProductImageState {
