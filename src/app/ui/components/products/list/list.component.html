@@ -5,7 +5,7 @@
   <div class="card-body">
     <h5 class="card-title">{{product.name}}</h5>
     <p class="card-text">{{product.price | currency:'₺'}} <br> Stok: {{product.stock}}</p>
-    <a href="#" class="btn btn-primary">Sepete ekle</a>
+    <a (click)="addToBasketItem(product.id)" class="btn btn-primary">Sepete ekle</a>
   </div>
 </div>
 

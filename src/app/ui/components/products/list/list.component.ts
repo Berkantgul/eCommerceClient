@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { BaseUrl } from 'src/app/contracts/base_url';
+import { CreateBasketItem } from 'src/app/contracts/basket/create_basket_item';
 import { List_Product } from 'src/app/contracts/list_product';
 import { FileService } from 'src/app/services/common/file.service';
+import { BasketService } from 'src/app/services/common/models/basket.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
 
 @Component({
@@ -10,7 +14,7 @@ import { ProductService } from 'src/app/services/common/models/product.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
+export class ListComponent extends BaseComponent implements OnInit {
 
   products: List_Product[]
   currentPageNo: number
@@ -19,7 +23,7 @@ export class ListComponent implements OnInit {
   pageList: number[] = []
   totalPageCount: number
   baseUrl: BaseUrl
-  constructor(private productService: ProductService, private activatedRoute: ActivatedRoute, private fileService: FileService) { }
+  constructor(private productService: ProductService, private activatedRoute: ActivatedRoute, private fileService: FileService, spinner: NgxSpinnerService, private basketService: BasketService) { super(spinner) }
 
   async ngOnInit() {
     this.baseUrl = await this.fileService.getStorageUrl();
@@ -72,6 +76,16 @@ export class ListComponent implements OnInit {
     })
   }
 
+  async addToBasketItem(productId: string) {
+    console.log(productId)
+    this.showSpinner(SpinnerType.BallScaleMultiple)
+    let basketItem: CreateBasketItem = new CreateBasketItem()
+    basketItem.productId = productId
+    basketItem.quantity = 1
+
+    await this.basketService.add(basketItem)
+    this.hideSpinner(SpinnerType.BallScaleMultiple)
+  }
 
 
 

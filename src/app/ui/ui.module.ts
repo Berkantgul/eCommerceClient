@@ -13,5 +13,6 @@ import { ComponentsModule } from './components/components.module';
   exports: [
     ComponentsModule
   ]
+
 })
 export class UiModule { }

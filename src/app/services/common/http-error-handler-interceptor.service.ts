@@ -5,13 +5,14 @@ import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../ui/cu
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SpinnerType } from 'src/app/base/base.component';
 import { UserAuthService } from './models/user-auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
 
-  constructor(private toastr: CustomToastrService, private spinner: NgxSpinnerService, private userAuthService: UserAuthService) { }
+  constructor(private toastr: CustomToastrService, private spinner: NgxSpinnerService, private userAuthService: UserAuthService, private router: Router) { }
 
   // req -> gelen istek
   // next -> nasıl devam edecek
@@ -26,7 +27,7 @@ export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
     // catchError() hatayı bizlere observable olarak sunuyor
     return next.handle(req).pipe(catchError(error => {
       // catchEror() operator function döndürmek zorunda
-      console.log(error)
+      // console.log(error)
       switch (error.status) {
         case HttpStatusCode.InternalServerError:
           this.toastr.message("Sunucuya erişilemiyor!", "Sunucu Hatası!", {
@@ -36,14 +37,29 @@ export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
           break;
 
         case HttpStatusCode.Unauthorized:
-          this.toastr.message("Bu işlemi yapmaya yetkiniz bulunmuyor!", "Yetkisiz İşlem!", {
-            toastrPosition: ToastrPosition.TopFullWidth,
-            messageType: ToastrMessageType.Warning
-          })
-
-          this.userAuthService.refreshTokenLogin(localStorage.getItem("refreshtoken")).then((data => {
-
+          this.userAuthService.refreshTokenLogin(localStorage.getItem("refreshtoken"), (state) => {
+            if (!state) {
+              const url = this.router.url
+              if (url == "/products")
+                this.toastr.message("Sepete ürün eklemek için oturum açmanız gerekiyor!", "Oturum açınız!", {
+                  messageType: ToastrMessageType.Warning,
+                  toastrPosition: ToastrPosition.TopRight
+                })
+              else
+                this.toastr.message("Bu işlemi yapmaya yetkiniz bulunmuyor!", "Yetkisiz İşlem!", {
+                  toastrPosition: ToastrPosition.TopFullWidth,
+                  messageType: ToastrMessageType.Warning
+                })
+            }
+          }).then((data => {
+            this.toastr.message("Bu işlemi yapmaya yetkiniz bulunmuyor!", "Yetkisiz İşlem!", {
+              toastrPosition: ToastrPosition.TopFullWidth,
+              messageType: ToastrMessageType.Warning
+            })
           }))
+
+
+
           break;
 
         case HttpStatusCode.BadRequest:
