@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
 
 @Injectable({
@@ -6,38 +6,37 @@ import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@micros
 })
 export class SignalrService {
 
-  private _connection: HubConnection
-  get connection() {
-    return this._connection
-  }
+  constructor(
+    @Inject("hubBaseUrl") private hubBaseUrl: string
+  ) { }
 
 
   start(hubUrl: string) {
-    if (!this._connection || this._connection?.state == HubConnectionState.Disconnected) {
+    hubUrl = this.hubBaseUrl + hubUrl
+    // debugger
+    const builder: HubConnectionBuilder = new HubConnectionBuilder()
 
-      const builder: HubConnectionBuilder = new HubConnectionBuilder()
+    const hubConnection: HubConnection = builder.withUrl(hubUrl).withAutomaticReconnect().build()
 
-      const hubConnection: HubConnection = builder.withUrl(hubUrl).withAutomaticReconnect().build()
+    hubConnection.start()
+      .then((data) => console.log("connected"))
+      .catch(error => setTimeout(() => this.start(hubUrl), 2000))
 
-      hubConnection.start()
-        .then((data) => console.log("connected"))
-        .catch(error => setTimeout(() => this.start(hubUrl), 2000))
 
-      this._connection = hubConnection
-
-      this._connection.onreconnected(connectionId => console.log("reconnected"))
-      this._connection.onreconnecting(connectionId => console.log("reconnecing"))
-      this._connection.onclose(connectionId => console.log("closed"))
-    }
+    hubConnection.onreconnected(connectionId => console.log("reconnected"))
+    hubConnection.onreconnecting(connectionId => console.log("reconnecing"))
+    hubConnection.onclose(connectionId => console.log("closed"))
+    return hubConnection
   }
 
-  invoke(procedureName: string, message: any, successCallBack?: (value) => void, errorCallBack?: (error) => void) {
-    this._connection.invoke(procedureName, message)
+  invoke(hubUrl: string, procedureName: string, message: any, successCallBack?: (value) => void, errorCallBack?: (error) => void) {
+    this.start(hubUrl).invoke(procedureName, message)
       .then(successCallBack)
       .catch(errorCallBack)
   }
 
-  on(procedureName: string, callBack: (...message: any) => void) {
-    this._connection.on(procedureName, callBack)
+  on(hubUrl: string, procedureName: string, callBack: (...message: any) => void) {
+    
+    this.start(hubUrl).on(procedureName, callBack)
   }
 }

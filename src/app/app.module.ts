@@ -50,6 +50,7 @@ import { DynamicComponentLoadDirective } from './directives/common/dynamic-compo
   ],
   providers: [
     { provide: "baseUrl", useValue: 'https://localhost:7046/api', multi: true },
+    { provide: "hubBaseUrl", useValue: 'https://localhost:7046/', multi: true },
     {
       provide: "SocialAuthServiceConfig",
       useValue: {

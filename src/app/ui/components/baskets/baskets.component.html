@@ -4,6 +4,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
   </div>
   <div class="modal-body">
+    <div class="alert alert-danger" *ngIf="!listBasketItems.length">Sepetinizde hiç ürün bulunmamaktadır!</div>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -15,6 +16,7 @@
         </tr>
       </thead>
       <tbody>
+
         <tr *ngFor="let basketItem of listBasketItems" id="{{basketItem.basketItemId}}">
           <th scope="row"></th>
           <td>{{basketItem.name}}</td>
@@ -41,6 +43,6 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Kapat</button>
-    <button type="button" class="btn btn-success">Alışverişi tamamla</button>
+    <button type="button" class="btn btn-success" (click)="shoppingCreate()">Alışverişi tamamla</button>
   </div>
 </div>
